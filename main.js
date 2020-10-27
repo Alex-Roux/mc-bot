@@ -41,6 +41,7 @@ log("Starting...", 1);
 
 const parametersJson = {
     createMineflayerViewer: false,
+    alternateChatSystem: false,
     host: "localhost",
     port: "61960",
     username: "Bot",
@@ -80,7 +81,8 @@ bot.once("spawn", () => {
 
 // Chat logger
 bot.on("message", (jsonMsg, position) => {
-    if(!jsonMsg.startsWith("<" + parameters.username)) log("[CHAT] " + jsonMsg, 1);
+    // Should work on most of the vanilla servers, if not, use alternateChatSystem
+    if(jsonMsg.json.with[0].insertion != parameters.username || parameters.alternateChatSystem) log("[CHAT] " + jsonMsg, 1);
 });
 
 /*bot.on("actionBar", (jsonMsg) => {
