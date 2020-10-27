@@ -13,8 +13,8 @@ const rl = readline.createInterface({
 // Global functions
 // Logging function
 function log(string, formalized) {;
-	var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
-	if(formalized) date = ('[' + date + ' GMT] ');
+	var date = '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' GMT] ';
+    if(!formalized) date = '';
 	var logLine = date + string;
 	console.log(logLine);
 	fs.appendFile('latest.log', logLine + "\r\n", function (err) {if (err) throw err;});
