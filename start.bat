@@ -1,1 +1,1 @@
-node desktop/bot.js
+node desktop/main.js
