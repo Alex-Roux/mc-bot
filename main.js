@@ -21,21 +21,23 @@ function log(string, formalized) {;
 }
 
 // Command handler
-console.log('');
 rl.prompt();
+log('', 0);
 rl.on('line', (input) => {
-    log("Received : " + input, 1);
+    //log("Input: " + input, 0);
     if(input == "/quit") {
         bot.quit('disconnect.quitting');
         process.exit();
     } else if(input.startsWith("/chat ")){
-        bot.chat(input.substring(6, 255))
+        var text = input.substring(6, 255);
+        bot.chat(text);
+        log(text);
+    } else {
+        log("Unknown command.", 0);
     }
-
-
     rl.prompt();
 });
-
+log("Starting...", 1);
 
 const parametersJson = {
     createMineflayerViewer: false,
@@ -51,7 +53,7 @@ const bot = mineflayer.createBot({
     host: parameters.localhost,
     port: parameters.port,
     username: parameters.username
-    //password: parameters.password
+    //password: parameters.password // Password not needed for localhost
 });
 
 log('Instance created.', 1);
