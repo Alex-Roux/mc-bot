@@ -1,1 +1,1 @@
-node desktop/main.js
+node Desktop/mc-bot/main.js
