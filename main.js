@@ -21,39 +21,27 @@ function log(string, formalized) {;
 }
 
 // Command handler
-console.log('');
 rl.prompt();
 rl.on('line', (input) => {
     log("Received : " + input, 1);
-    if(input == "/quit") {
-        bot.quit('disconnect.quitting');
-        process.exit();
-    } else if(input.startsWith("/chat ")){
-        bot.chat(input.substring(6, 255))
+    switch (input) {
+        case "quit":
+            bot.quit('disconnect.quitting');
+            process.exit();
     }
-
-
+    console.log('');
     rl.prompt();
 });
 
-
-const parametersJson = {
-    createMineflayerViewer: false,
-    host: "localhost",
-    port: "61960",
-    username: "Bot",
-    password: ""
-}
-const parameters = Object.create(parametersJson);
-
 // Creating the bot
 const bot = mineflayer.createBot({
-    host: parameters.localhost,
-    port: parameters.port,
-    username: parameters.username
-    //password: parameters.password
+    //host: "",
+    host: "localhost",
+    port: 58921,
+    username: 'Bot',
+    //password: ''
 });
-
+const createMineflayerViewer = false;
 log('Instance created.', 1);
 
 
@@ -63,7 +51,7 @@ bot.once("login", () => {
 
 // MineflayerViewer
 bot.once("spawn", () => {
-    if(parameters.createMineflayerViewer) {
+    if(createMineflayerViewer) {
         log('Spawning mineflayerViewer instance...', 1);
         try {
             mineflayerViewer(bot, { port: 3007, firstPerson: false });
@@ -77,11 +65,7 @@ bot.once("spawn", () => {
 });
 
 // Chat logger
-bot.on("message", (jsonMsg, position) => {
-    if(!jsonMsg.startsWith("<" + parameters.username)) log("[CHAT] " + jsonMsg, 1);
+bot.on("chat", (username, message, translate, jsonMsg, matches) => {
+    log("[CHAT] " + jsonMsg, 1);
+    //log("[matches]] " + matches, 0);
 });
-
-/*bot.on("actionBar", (jsonMsg) => {
-    console.log("actionBar");
-    log("[ACTION BAR] " + jsonMsg, 1);
-});*/
