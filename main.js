@@ -41,8 +41,9 @@ const bot = mineflayer.createBot({
     username: 'Bot',
     //password: ''
 });
+const createMineflayerViewer = false;
+log('Instance created.', 1);
 
-const createMineflayerViewer = 1;
 
 bot.once("login", () => {
     log('Logged in.', 1);
