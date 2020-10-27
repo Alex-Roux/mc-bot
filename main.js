@@ -66,5 +66,5 @@ bot.once("spawn", () => {
 // Chat logger
 bot.on("chat", (username, message, translate, jsonMsg, matches) => {
     log("[CHAT] " + jsonMsg, 1);
-    log("[matches]] " + matches, 0);
+    //log("[matches]] " + matches, 0);
 });
