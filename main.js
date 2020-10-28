@@ -79,6 +79,10 @@ bot.once("spawn", () => {
     log("Listening...", 1);
 });
 
+bot.on("death", () => {
+    log("Respawning...", 1);
+    bot.setControlState("sneak", true);
+});
 // Chat logger
 bot.on("message", (jsonMsg, position) => {
     // Should work on most of the vanilla servers, if not, use alternateChatSystem (DEPRECATED)
