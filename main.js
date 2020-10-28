@@ -1,20 +1,20 @@
 // Libraries
-const mineflayer = require('mineflayer');
-const mineflayerViewer = require('prismarine-viewer').mineflayer;
-const fs = require('fs');
-const readline = require('readline');
-const colors = require('colors');
+const mineflayer = require("mineflayer");
+const mineflayerViewer = require("prismarine-viewer").mineflayer;
+const fs = require("fs");
+const readline = require("readline");
+const colors = require("colors");
 
 // rl interface creation for command input
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
+// Color theme
 colors.setTheme({
-  info: 'cyan',
-  warn: 'yellow',
-  error: 'red'
+  info: "cyan",
+  warn: "yellow",
+  error: "red"
 });
 var movementCooldown = {};
 var foodSat = [0,0];
@@ -26,29 +26,29 @@ const parametersJson = {
     port: "52663",
     username: "Bot",
     password: ""
-}
+};
 const trustedPlayers = [
 ]
 
 // Global functions
 // Logging function
 function log(string, formalized) {;
-	var date = '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' GMT] ';
-    if(!formalized) date = '';
+	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
+    if(!formalized) date = "";
 	var logLine = date.grey + string;
 	console.log(logLine);
     logLine = logLine.replace(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu, ""); // oh my
-	fs.appendFile('latest.log', logLine + "\r\n", function (err) {if (err) throw err;});
+	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) throw err;});
 }
 
 // Command handler
 rl.prompt();
-log('', 0);
-rl.on('line', (input) => {
+log("", 0);
+rl.on("line", (input) => {
     //log("Input: " + input, 0);
     if(input == "/quit") {
         log("Exiting.", 1);
-        bot.quit('disconnect.quitting');
+        bot.quit("disconnect.quitting");
         process.exit();
 
     } else if(input == "/players") {
@@ -115,7 +115,7 @@ const bot = mineflayer.createBot({
     port: parameters.port,
     username: parameters.username
 });
-log('Instance created.'.info, 1);
+log("Instance created.".info, 1);
 
 
 bot.once("login", () => {
