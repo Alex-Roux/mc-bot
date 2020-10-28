@@ -22,7 +22,7 @@ const parameters = JSON.parse(rawdata);
 
 var movementCooldown = {};
 var functionCooldown = {}; //// COMBAK:
-
+var playerList;
 
 // Global functions
 // Logging function
@@ -31,7 +31,8 @@ function log(string, formalized) {
     if(!formalized) date = "";
 	var logLine = date.grey + string;
 	console.log(logLine);
-    logLine = logLine.replace(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu, ""); // oh my
+    const regex = new RegExp(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu);  // oh my
+    logLine = logLine.replace(regex, "");
 	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) throw err;});
 }
 
