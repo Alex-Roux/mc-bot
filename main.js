@@ -126,6 +126,13 @@ bot.once("spawn", () => {
         }
     }
     bot.setControlState("sneak", true);
+    playersList = bot.players;
+    log("Online players : ".info, 1);
+    Object.keys(playersList).forEach(function(key) {
+        var player = playersList[key];
+        //console.log(player);
+        log(" - " + player.username + ", " + player.ping + " ms", 1);
+    });
     log("Listening...".info, 1);
 });
 
