@@ -12,7 +12,7 @@ const rl = readline.createInterface({
 
 const parametersJson = {
     createMineflayerViewer: false,
-    //alternateChatSystem: false,
+    cracked: true, // true if the server allows cracked instances or hosted as localhost
     host: "localhost",
     port: "52663",
     username: "Bot",
@@ -84,11 +84,17 @@ log("Starting...", 1);
 const parameters = Object.create(parametersJson);
 
 // Creating the bot
-const bot = mineflayer.createBot({
+if(!cracked) const bot = mineflayer.createBot({
     host: parameters.host,
     port: parameters.port,
     username: parameters.username,
-    //password: parameters.password // Password not needed for localhost
+    password: parameters.password
+});
+
+if(cracked) const bot = mineflayer.createBot({
+    host: parameters.host,
+    port: parameters.port,
+    username: parameters.username
 });
 
 log('Instance created.', 1);
