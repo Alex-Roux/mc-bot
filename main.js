@@ -119,13 +119,13 @@ log("Instance created.".info, 1);
 
 
 bot.once("login", () => {
-    log('Logged in.'.info, 1);
+    log("Logged in.".info, 1);
 });
 
 // MineflayerViewer
 bot.once("spawn", () => {
     if(parameters.createMineflayerViewer) {
-        log('Spawning mineflayerViewer instance...', 1);
+        log("Spawning mineflayerViewer instance...", 1);
         try {
             mineflayerViewer(bot, { port: 3007, firstPerson: false });
         } catch (e) {
@@ -191,13 +191,13 @@ bot.on("entityMoved", (entity) => {
 
     }
 });
-bot.on('kicked', (reason, loggedIn) => {
+bot.on("kicked", (reason, loggedIn) => {
     log("[SYSTEM] KICKED".error + "  : " + reason + ", " + loggedIn, 1);
-    bot.quit('disconnect.quitting');
+    bot.quit("disconnect.quitting");
     process.exit();
 });
-bot.on('error', err => {
+bot.on("error", err => {
     log("[SYSTEM] ERROR".error + "  : " + err, 1);
-    bot.quit('disconnect.quitting');
+    bot.quit("disconnect.quitting");
     process.exit();
 });
