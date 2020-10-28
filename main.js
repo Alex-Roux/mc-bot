@@ -21,7 +21,6 @@ const rawdata = fs.readFileSync("settings.json");
 const parameters = JSON.parse(rawdata);
 
 var movementCooldown = {};
-var foodSat = [0,0];
 var functionCooldown = {}; //// COMBAK:
 
 
