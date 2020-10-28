@@ -84,14 +84,23 @@ log("Starting...", 1);
 const parameters = Object.create(parametersJson);
 
 // Creating the bot
-if(!cracked) const bot = mineflayer.createBot({
-    host: parameters.host,
-    port: parameters.port,
-    username: parameters.username,
-    password: parameters.password
-});
+/*if(!parameters.cracked) {
+    const bot = mineflayer.createBot({
+        host: parameters.host,
+        port: parameters.port,
+        username: parameters.username,
+        password: parameters.password
+    });
+}
 
-if(cracked) const bot = mineflayer.createBot({
+if(parameters.cracked) {
+    const bot = mineflayer.createBot({
+        host: parameters.host,
+        port: parameters.port,
+        username: parameters.username
+    });
+}*/
+const bot = mineflayer.createBot({
     host: parameters.host,
     port: parameters.port,
     username: parameters.username
