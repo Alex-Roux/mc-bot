@@ -31,7 +31,7 @@ rl.on('line', (input) => {
     } else if(input.startsWith("/chat ")){
         var text = input.substring(6, 255);
         bot.chat(text);
-        log(text);
+        //log(text);
     } else {
         log("Unknown command.", 0);
     }
@@ -40,7 +40,7 @@ rl.on('line', (input) => {
 log("Starting...", 1);
 
 const parametersJson = {
-    createMineflayerViewer: false,
+    //createMineflayerViewer: false,
     alternateChatSystem: false,
     host: "localhost",
     port: "61960",
@@ -81,8 +81,13 @@ bot.once("spawn", () => {
 
 // Chat logger
 bot.on("message", (jsonMsg, position) => {
-    // Should work on most of the vanilla servers, if not, use alternateChatSystem
-    if(jsonMsg.json.with[0].insertion != parameters.username || parameters.alternateChatSystem) log("[CHAT] " + jsonMsg, 1);
+    // Should work on most of the vanilla servers, if not, use alternateChatSystem (DEPRECATED)
+    /*try {
+        if(jsonMsg.json.with[0].insertion != parameters.username || parameters.alternateChatSystem) log("[CHAT] " + jsonMsg, 1);
+    } catch (e) {
+        log("[CHAT] " + jsonMsg, 1);
+    }*/
+    log("[CHAT] " + jsonMsg, 1);
 });
 
 /*bot.on("actionBar", (jsonMsg) => {
