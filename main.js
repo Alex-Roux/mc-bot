@@ -19,15 +19,16 @@ colors.setTheme({
 var movementCooldown = {};
 
 const parametersJson = {
-    createMineflayerViewer: false,
+    createMineflayerViewer: false, // Self explanatory
+    logCoordsforTrustedPlayers: false, // Self explanatory
     cracked: true, // true if the server allows cracked instances or hosted as localhost
     host: "localhost",
     port: "52663",
     username: "Bot",
     password: ""
 }
-
-
+const trustedPlayers = [
+]
 
 // Global functions
 // Logging function
@@ -145,10 +146,43 @@ bot.on("message", (jsonMsg, position) => {
     log("[CHAT] " + jsonMsg, 1);
 });
 
-bot.on("entitySpawn", () => {
-    log("[CHAT] Entity", 1);
+bot.on("entitySpawn", (entity) => {
+    if(entity.type == "player") {
+        //log("[SECURITY] New player in range", 1);
+        if(entity.username != bot.username) {
+            if(!trustedPlayers.includes(entity.username)) {
+                for (var i = 0; i < 5; i++) {
+                    log("[SECURITY]".error + " NEW PLAYER IN SCANNING RANGE : " + entity.username, 1);
+                }
+            } else {
+                log("[SECURITY]".error + " New trusted player in scanning range : " + entity.username, 1);
+            }
+        }
+    }
+});
+bot.on("entityGone", (entity) => {
+    if(entity.type == "player") {
+        log("[SECURITY]".error + " " + entity.username + " left the scanning range", 1);
+    }
 });
 
+bot.on("entityMoved", (entity) => {
+    var millis = Date.now();
+    if(entity.type == "player") {
+        if(trustedPlayers.includes(entity.username)) {
+            var cooldown = 10000;
+        } else {
+            var cooldown = 2000;
+        }
+        if(!movementCooldown[entity.username]) {
+            movementCooldown[entity.username] = millis;
+        } else if(millis > movementCooldown[entity.username] + cooldown && parameters.logCoordsforTrustedPlayers) {
+            log("[SECURITY]".error + " " + entity.username + "  position : x:" + Math.round(entity.position.x)+ " y:" + Math.round(entity.position.y)+ " z:" + Math.round(entity.position.z), 1);
+            movementCooldown[entity.username] = millis;
+        }
+
+    }
+});
 bot.on('kicked', (reason, loggedIn) => {
     log("[SYSTEM] KICKED".error + "  : " + reason + ", " + loggedIn, 1);
     bot.quit('disconnect.quitting');
