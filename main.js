@@ -3,12 +3,20 @@ const mineflayer = require('mineflayer');
 const mineflayerViewer = require('prismarine-viewer').mineflayer;
 const fs = require('fs');
 const readline = require('readline');
+const colors = require('colors');
 
 // rl interface creation for command input
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+colors.setTheme({
+  info: 'cyan',
+  warn: 'yellow',
+  error: 'red'
+});
+var movementCooldown = {};
 
 const parametersJson = {
     createMineflayerViewer: false,
@@ -26,7 +34,7 @@ const parametersJson = {
 function log(string, formalized) {;
 	var date = '[' + new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' GMT] ';
     if(!formalized) date = '';
-	var logLine = date + string;
+	var logLine = date.grey + string;
 	console.log(logLine);
 	fs.appendFile('latest.log', logLine + "\r\n", function (err) {if (err) throw err;});
 }
@@ -78,7 +86,7 @@ rl.on('line', (input) => {
     }
     rl.prompt();
 });
-log("Starting...", 1);
+log("Starting...".info, 1);
 
 
 const parameters = Object.create(parametersJson);
@@ -105,11 +113,11 @@ const bot = mineflayer.createBot({
     port: parameters.port,
     username: parameters.username
 });
-log('Instance created.', 1);
+log('Instance created.'.info, 1);
 
 
 bot.once("login", () => {
-    log('Logged in.', 1);
+    log('Logged in.'.info, 1);
 });
 
 // MineflayerViewer
@@ -125,7 +133,7 @@ bot.once("spawn", () => {
         }
     }
     bot.setControlState("sneak", true);
-    log("Listening...", 1);
+    log("Listening...".info, 1);
 });
 
 bot.on("death", () => {
@@ -142,12 +150,12 @@ bot.on("entitySpawn", () => {
 });
 
 bot.on('kicked', (reason, loggedIn) => {
-    log("[SYSTEM] KICKED : " + reason + ", " + loggedIn, 1);
+    log("[SYSTEM] KICKED".error + "  : " + reason + ", " + loggedIn, 1);
     bot.quit('disconnect.quitting');
     process.exit();
 });
 bot.on('error', err => {
-    log("[SYSTEM] ERROR : " + err, 1);
+    log("[SYSTEM] ERROR".error + "  : " + err, 1);
     bot.quit('disconnect.quitting');
     process.exit();
 });
