@@ -51,9 +51,9 @@ const parameters = Object.create(parametersJson);
 
 // Creating the bot
 const bot = mineflayer.createBot({
-    host: parameters.localhost,
+    host: parameters.host,
     port: parameters.port,
-    username: parameters.username
+    username: parameters.username,
     //password: parameters.password // Password not needed for localhost
 });
 
