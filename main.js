@@ -43,7 +43,7 @@ rl.on('line', (input) => {
     } else if(input.startsWith("/chat ")){
         var text = input.substring(6, 255);
         bot.chat(text);
-        //log(text);
+
     } else {
         log("Unknown command.", 0);
     }
@@ -81,6 +81,7 @@ bot.once("spawn", () => {
             log("Done.", 1);
         }
     }
+    bot.setControlState("sneak", true);
     log("Listening...", 1);
 });
 
@@ -106,9 +107,11 @@ bot.on("message", (jsonMsg, position) => {
 
 bot.on('kicked', (reason, loggedIn) => {
     log("[SYSTEM] KICKED : " + reason + ", " + loggedIn, 1);
+    bot.quit('disconnect.quitting');
     process.exit();
 });
 bot.on('error', err => {
     log("[SYSTEM] ERROR : " + err, 1);
+    bot.quit('disconnect.quitting');
     process.exit();
 });
