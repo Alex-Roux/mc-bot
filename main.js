@@ -135,7 +135,7 @@ bot.on("message", (jsonMsg, position) => {
 bot.on("entitySpawn", (entity) => {
     if(entity.type === "player") {
         //log("[SECURITY] New player in range", 1);
-        if(entity.username != bot.username) {
+        if(entity.username !== bot.username) {
             if(!parameters.trustedPlayers.includes(entity.username)) {
                 for (var i = 0; i < 5; i++) {
                     log("[SECURITY]".error + " NEW PLAYER IN SCANNING RANGE : " + entity.username, 1);
@@ -161,11 +161,12 @@ bot.on("health", (entity) => {
 
 bot.on("entityMoved", (entity) => {
     var millis = Date.now();
+    var cooldown;
     if(entity.type === "player") {
         if(parameters.trustedPlayers.includes(entity.username)) {
-            var cooldown = 10000;
+            cooldown = 10000;
         } else {
-            var cooldown = 2000;
+            cooldown = 2000;
         }
         if(!movementCooldown[entity.username]) {
             movementCooldown[entity.username] = millis;
@@ -181,7 +182,7 @@ bot.on("kicked", (reason, loggedIn) => {
     bot.quit("disconnect.quitting");
     process.exit();
 });
-bot.on("error", err => {
+bot.on("error", (err) => {
     log("[SYSTEM] ERROR".error + "  : " + err, 1);
     bot.quit("disconnect.quitting");
     process.exit();
