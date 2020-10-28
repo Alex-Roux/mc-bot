@@ -40,6 +40,35 @@ rl.on('line', (input) => {
         log("Exiting.", 1);
         bot.quit('disconnect.quitting');
         process.exit();
+
+    } else if(input == "/players") {
+        log("", 0);
+        log("Players list", 0);
+        playersList = bot.players;
+        Object.keys(playersList).forEach(function(key) {
+            var player = playersList[key];
+            //console.log(player);
+            log(" - " + player.username + ", " + player.ping + " ms", 0);
+        });
+
+    } else if(input == "/entities") {
+        log("", 0);
+        log("Entities list", 0);
+        playersList = bot.entities;
+        Object.keys(playersList).forEach(function(key) {
+            var entity = playersList[key];
+            //console.log(entity);
+            if(entity.type == "player") {
+                log(" - [Player] " + entity.username + " x:" + Math.round(entity.position.x)+ " y:" + Math.round(entity.position.y)+ " z:" + Math.round(entity.position.z), 0);
+                //console.log(entity);
+            } else if(entity.type == "mob") {
+                log(" - [Mob]    " + entity.displayName, 0);
+            } else {
+                log(" - [Entity] " + entity.displayName, 0);
+            }
+            //log(" - " + entity.displayName + ", " + entity.ping + " ms", 0);
+        });
+
     } else if(input.startsWith("/chat ")){
         var text = input.substring(6, 255);
         bot.chat(text);
