@@ -35,9 +35,22 @@ function log(string, formalized) {
 	fs.appendFile("latest.log", logLine + "\r\n", function (err) {if (err) throw err;});
 }
 
-// Command handler
+
 rl.prompt();
 log("", 0);
+
+log("Starting...".info, 1);
+
+// Creating the bot  // COMBAK
+const bot = mineflayer.createBot({
+    host: parameters.host,
+    port: parameters.port,
+    username: parameters.username
+});
+log("Instance created.".info, 1);
+
+
+// Command handler
 rl.on("line", (input) => {
     if(input === "/quit") {
         log("Exiting.", 1);
@@ -81,16 +94,6 @@ rl.on("line", (input) => {
     }
     rl.prompt();
 });
-log("Starting...".info, 1);
-
-// Creating the bot  // COMBAK
-const bot = mineflayer.createBot({
-    host: parameters.host,
-    port: parameters.port,
-    username: parameters.username
-});
-log("Instance created.".info, 1);
-
 
 bot.once("login", () => {
     log("Logged in.".info, 1);
