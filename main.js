@@ -126,19 +126,9 @@ bot.on("death", () => {
 });
 // Chat logger
 bot.on("message", (jsonMsg, position) => {
-    // Should work on most of the vanilla servers, if not, use alternateChatSystem (DEPRECATED)
-    /*try {
-        if(jsonMsg.json.with[0].insertion != parameters.username || parameters.alternateChatSystem) log("[CHAT] " + jsonMsg, 1);
-    } catch (e) {
-        log("[CHAT] " + jsonMsg, 1);
-    }*/
     log("[CHAT] " + jsonMsg, 1);
 });
 
-/*bot.on("actionBar", (jsonMsg) => {
-    console.log("actionBar");
-    log("[ACTION BAR] " + jsonMsg, 1);
-});*/
 
 bot.on('kicked', (reason, loggedIn) => {
     log("[SYSTEM] KICKED : " + reason + ", " + loggedIn, 1);
