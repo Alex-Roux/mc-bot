@@ -99,3 +99,12 @@ bot.on("message", (jsonMsg, position) => {
     console.log("actionBar");
     log("[ACTION BAR] " + jsonMsg, 1);
 });*/
+
+bot.on('kicked', (reason, loggedIn) => {
+    log("[SYSTEM] KICKED : " + reason + ", " + loggedIn, 1);
+    process.exit();
+});
+bot.on('error', err => {
+    log("[SYSTEM] ERROR : " + err, 1);
+    process.exit();
+});
