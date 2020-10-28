@@ -22,7 +22,7 @@ const parameters = JSON.parse(rawdata);
 
 var movementCooldown = {};
 var functionCooldown = {}; //// COMBAK:
-var playerList;
+var playersList;
 
 // Global functions
 // Logging function
