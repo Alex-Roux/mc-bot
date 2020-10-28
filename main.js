@@ -17,7 +17,7 @@ colors.setTheme({
   error: 'red'
 });
 var movementCooldown = {};
-
+var foodSat = [0,0];
 const parametersJson = {
     createMineflayerViewer: false, // Self explanatory
     logCoordsforTrustedPlayers: false, // Self explanatory
@@ -164,6 +164,13 @@ bot.on("entityGone", (entity) => {
     if(entity.type == "player") {
         log("[SECURITY]".error + " " + entity.username + " left the scanning range", 1);
     }
+});
+
+bot.on("health", (entity) => {
+    var health = Math.round(bot.health);
+    var food = Math.round(bot.food);
+    var sat = Math.round(bot.foodSaturation);
+    log("Health : ".info + health + " Hunger/Saturation : ".info + food + "/" + sat, 1);
 });
 
 bot.on("entityMoved", (entity) => {
