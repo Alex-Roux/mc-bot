@@ -1,0 +1,14 @@
+{
+    "createMineflayerViewer": true,
+    "logCoordsforTrustedPlayers": true,
+    "cracked": true,
+    "host": "localhost",
+    "port": "",
+    "username": "Bot",
+    "password": "",
+    "trustedPlayers": [
+        "player_1",
+        "player_2",
+        "player_3"
+    ]
+}
