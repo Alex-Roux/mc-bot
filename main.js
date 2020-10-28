@@ -84,23 +84,7 @@ rl.on("line", (input) => {
 });
 log("Starting...".info, 1);
 
-// Creating the bot
-/*if(!parameters.cracked) {
-    const bot = mineflayer.createBot({
-        host: parameters.host,
-        port: parameters.port,
-        username: parameters.username,
-        password: parameters.password
-    });
-}
-
-if(parameters.cracked) {
-    const bot = mineflayer.createBot({
-        host: parameters.host,
-        port: parameters.port,
-        username: parameters.username
-    });
-}*/
+// Creating the bot  // COMBAK
 const bot = mineflayer.createBot({
     host: parameters.host,
     port: parameters.port,
