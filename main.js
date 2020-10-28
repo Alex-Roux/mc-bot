@@ -16,19 +16,14 @@ colors.setTheme({
   warn: "yellow",
   error: "red"
 });
+
+const rawdata = fs.readFileSync("settings.json");
+const parameters = JSON.parse(rawdata);
+
 var movementCooldown = {};
 var foodSat = [0,0];
-const parametersJson = {
-    createMineflayerViewer: false, // Self explanatory
-    logCoordsforTrustedPlayers: false, // Self explanatory
-    cracked: true, // true if the server allows cracked instances or hosted as localhost
-    host: "localhost",
-    port: "52663",
-    username: "Bot",
-    password: ""
-};
-const trustedPlayers = [
-]
+var functionCooldown = {}; //// COMBAK:
+
 
 // Global functions
 // Logging function
@@ -90,9 +85,6 @@ rl.on("line", (input) => {
 });
 log("Starting...".info, 1);
 
-
-const parameters = Object.create(parametersJson);
-
 // Creating the bot
 /*if(!parameters.cracked) {
     const bot = mineflayer.createBot({
@@ -151,7 +143,7 @@ bot.on("entitySpawn", (entity) => {
     if(entity.type == "player") {
         //log("[SECURITY] New player in range", 1);
         if(entity.username != bot.username) {
-            if(!trustedPlayers.includes(entity.username)) {
+            if(!parameters.trustedPlayers.includes(entity.username)) {
                 for (var i = 0; i < 5; i++) {
                     log("[SECURITY]".error + " NEW PLAYER IN SCANNING RANGE : " + entity.username, 1);
                 }
@@ -177,7 +169,7 @@ bot.on("health", (entity) => {
 bot.on("entityMoved", (entity) => {
     var millis = Date.now();
     if(entity.type == "player") {
-        if(trustedPlayers.includes(entity.username)) {
+        if(parameters.trustedPlayers.includes(entity.username)) {
             var cooldown = 10000;
         } else {
             var cooldown = 2000;
