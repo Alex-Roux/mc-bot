@@ -105,7 +105,6 @@ const bot = mineflayer.createBot({
     port: parameters.port,
     username: parameters.username
 });
-
 log('Instance created.', 1);
 
 
@@ -138,6 +137,9 @@ bot.on("message", (jsonMsg, position) => {
     log("[CHAT] " + jsonMsg, 1);
 });
 
+bot.on("entitySpawn", () => {
+    log("[CHAT] Entity", 1);
+});
 
 bot.on('kicked', (reason, loggedIn) => {
     log("[SYSTEM] KICKED : " + reason + ", " + loggedIn, 1);
