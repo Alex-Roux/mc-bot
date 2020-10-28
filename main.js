@@ -37,6 +37,7 @@ function log(string, formalized) {;
     if(!formalized) date = '';
 	var logLine = date.grey + string;
 	console.log(logLine);
+    logLine = logLine.replace(/(\x1B\x5B39m|\x1B\x5B90m|\x1B\x5B36m|\x1B\x5B31m)/gmu, ""); // oh my
 	fs.appendFile('latest.log', logLine + "\r\n", function (err) {if (err) throw err;});
 }
 
