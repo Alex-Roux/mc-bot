@@ -26,6 +26,7 @@ log('', 0);
 rl.on('line', (input) => {
     //log("Input: " + input, 0);
     if(input == "/quit") {
+        log("Exiting.", 1);
         bot.quit('disconnect.quitting');
         process.exit();
     } else if(input.startsWith("/chat ")){
