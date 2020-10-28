@@ -26,7 +26,7 @@ var functionCooldown = {}; //// COMBAK:
 
 // Global functions
 // Logging function
-function log(string, formalized) {;
+function log(string, formalized) {
 	var date = "[" + new Date().toISOString().replace(/T/, " ").replace(/\..+/, "") + " GMT] ";
     if(!formalized) date = "";
 	var logLine = date.grey + string;
@@ -39,13 +39,12 @@ function log(string, formalized) {;
 rl.prompt();
 log("", 0);
 rl.on("line", (input) => {
-    //log("Input: " + input, 0);
-    if(input == "/quit") {
+    if(input === "/quit") {
         log("Exiting.", 1);
         bot.quit("disconnect.quitting");
         process.exit();
 
-    } else if(input == "/players") {
+    } else if(input === "/players") {
         log("", 0);
         log("Players list", 0);
         playersList = bot.players;
@@ -55,17 +54,17 @@ rl.on("line", (input) => {
             log(" - " + player.username + ", " + player.ping + " ms", 0);
         });
 
-    } else if(input == "/entities") {
+    } else if(input === "/entities") {
         log("", 0);
         log("Entities list", 0);
         playersList = bot.entities;
         Object.keys(playersList).forEach(function(key) {
             var entity = playersList[key];
             //console.log(entity);
-            if(entity.type == "player") {
+            if(entity.type === "player") {
                 log(" - [Player] " + entity.username + " x:" + Math.round(entity.position.x)+ " y:" + Math.round(entity.position.y)+ " z:" + Math.round(entity.position.z), 0);
                 //console.log(entity);
-            } else if(entity.type == "mob") {
+            } else if(entity.type === "mob") {
                 log(" - [Mob]    " + entity.displayName, 0);
             } else {
                 log(" - [Entity] " + entity.displayName, 0);
@@ -130,7 +129,7 @@ bot.on("message", (jsonMsg, position) => {
 });
 
 bot.on("entitySpawn", (entity) => {
-    if(entity.type == "player") {
+    if(entity.type === "player") {
         //log("[SECURITY] New player in range", 1);
         if(entity.username != bot.username) {
             if(!parameters.trustedPlayers.includes(entity.username)) {
@@ -144,7 +143,7 @@ bot.on("entitySpawn", (entity) => {
     }
 });
 bot.on("entityGone", (entity) => {
-    if(entity.type == "player") {
+    if(entity.type === "player") {
         log("[SECURITY]".error + " " + entity.username + " left the scanning range", 1);
     }
 });
@@ -158,7 +157,7 @@ bot.on("health", (entity) => {
 
 bot.on("entityMoved", (entity) => {
     var millis = Date.now();
-    if(entity.type == "player") {
+    if(entity.type === "player") {
         if(parameters.trustedPlayers.includes(entity.username)) {
             var cooldown = 10000;
         } else {
