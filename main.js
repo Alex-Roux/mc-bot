@@ -10,6 +10,17 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+const parametersJson = {
+    createMineflayerViewer: false,
+    //alternateChatSystem: false,
+    host: "localhost",
+    port: "52663",
+    username: "Bot",
+    password: ""
+}
+
+
+
 // Global functions
 // Logging function
 function log(string, formalized) {;
@@ -40,14 +51,7 @@ rl.on('line', (input) => {
 });
 log("Starting...", 1);
 
-const parametersJson = {
-    //createMineflayerViewer: false,
-    alternateChatSystem: false,
-    host: "localhost",
-    port: "61960",
-    username: "Bot",
-    password: ""
-}
+
 const parameters = Object.create(parametersJson);
 
 // Creating the bot
